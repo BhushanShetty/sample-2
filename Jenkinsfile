@@ -45,5 +45,9 @@ pipeline {
     }
 }
 
+stage('Install Dependencies') {
+    steps {
+        bat 'pip install requests==2.20.0'
+    }
+}
 
-Requests==2.20.0

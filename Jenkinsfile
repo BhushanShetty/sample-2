@@ -45,6 +45,14 @@ pipeline {
     }
 }
 
+stage('Trivy Scan') {
+    steps {
+        sh '''
+            trivy image --format json -o trivy-report.json my-image:latest
+        '''
+    }
+}
+
 
 
 

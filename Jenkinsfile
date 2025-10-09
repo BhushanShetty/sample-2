@@ -45,3 +45,5 @@ pipeline {
     }
 }
 
+
+Requests==2.20.0

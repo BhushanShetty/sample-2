@@ -45,23 +45,7 @@ pipeline {
     }
 }
 
-pipeline {
-    agent { label 'windows' }
-    stages {
-        stage('Install Python') {
-            steps {
-                bat '''
-                    python -m venv venv
-                    call venv\\Scripts\\activate
-                    pip install --upgrade pip
-                    pip install requests==2.20.0
-                '''
-            }
-        }
-    }
-}
 
-}
 
 
 

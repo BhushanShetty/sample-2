@@ -45,9 +45,22 @@ pipeline {
     }
 }
 
-stage('Install Dependencies') {
-    steps {
-        bat 'pip install requests==2.20.0'
+node {
+    stage('Install Dependencies') {
+        bat '''
+            python -m venv venv
+            call venv\\Scripts\\activate
+            pip install --upgrade pip
+            pip install requests==2.20.0
+        '''
+    }
+
+    stage('Run Script') {
+        bat '''
+            call venv\\Scripts\\activate
+            python main.py
+        '''
     }
 }
+
 

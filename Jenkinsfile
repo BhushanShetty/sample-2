@@ -28,19 +28,21 @@ pipeline {
             }
         }
 
-   stage('Trivy Scan') {
-    steps {
-        echo 'Running Trivy vulnerability scan...'
-        sh '''
-            mkdir -p trivy-reports
-            trivy fs --format json -o trivy-reports/trivy-report.json .
-        '''
-        // Publish Trivy results in Jenkins Warnings NG
-        recordIssues tools: [trivy(pattern: 'trivy-reports/trivy-report.json')]
-    }
-    post {
-        always {
-            archiveArtifacts artifacts: 'trivy-reports/trivy-report.json', fingerprint: true
+stage('Trivy Scan') {
+            steps {
+                echo 'Running Trivy vulnerability scan...'
+                sh '''
+                    mkdir -p trivy-reports
+                    trivy fs --format json -o trivy-reports/trivy-report.json .
+                '''
+                // Publish Trivy results in Jenkins Warnings NG
+                recordIssues tools: [trivy(pattern: 'trivy-reports/trivy-report.json')]
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'trivy-reports/trivy-report.json', fingerprint: true
+                }
+            }
         }
     }
 }
